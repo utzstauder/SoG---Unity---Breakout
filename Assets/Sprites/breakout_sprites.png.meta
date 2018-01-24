@@ -1,13 +1,14 @@
 fileFormatVersion: 2
 guid: d69108958772e9147a9ecd44036f59ca
-timeCreated: 1516629318
+timeCreated: 1516804892
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: ball_big
     21300002: racket_big
     21300004: brick_0
-    21300006: powerup
+    21300006: powerup_1
+    21300008: powerup_0
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -145,10 +146,24 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: powerup
+      name: powerup_1
       rect:
         serializedVersion: 2
         x: 200
+        y: 248
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: powerup_0
+      rect:
+        serializedVersion: 2
+        x: 160
         y: 248
         width: 32
         height: 32

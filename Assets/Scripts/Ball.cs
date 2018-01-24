@@ -99,4 +99,21 @@ public class Ball : MonoBehaviour {
         // set velocity
         myRigidbody2D.velocity = direction.normalized * speed;
     }
+
+
+    /// <summary>
+    /// Changes the speed of this ball instance
+    /// </summary>
+    /// <param name="speedChange">The delta speed</param>
+    public void ChangeSpeed(float speedChange)
+    {
+        // get current direction
+        Vector2 direction = myRigidbody2D.velocity.normalized;
+
+        // change speed
+        speed += speedChange;
+
+        // apply speed to rigidbody
+        myRigidbody2D.velocity = direction * speed;
+    }
 }

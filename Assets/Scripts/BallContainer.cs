@@ -79,4 +79,25 @@ public class BallContainer : MonoBehaviour {
         }
 
     }
+
+
+    /// <summary>
+    /// Changes the speed of every child object (ball)
+    /// </summary>
+    /// <param name="speedChange">The delta speed</param>
+    public void ChangeBallSpeed(float speedChange)
+    {
+        // iterate through all child objects (= balls)
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            // get script reference
+            Ball ballScript = transform.GetChild(i).gameObject.GetComponent<Ball>();
+
+            if (ballScript != null)
+            {
+                // change speed for every ball
+                ballScript.ChangeSpeed(speedChange);
+            }
+        }
+    }
 }

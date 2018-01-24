@@ -2,7 +2,7 @@
 
 public class Brick : MonoBehaviour {
 
-    public GameObject powerupPrefab;
+    public GameObject[] powerupPrefabs;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -22,10 +22,10 @@ public class Brick : MonoBehaviour {
         // Debug.Log(powerupPrefab);
 
         // spawn power up
-        if (powerupPrefab != null)
+        if (powerupPrefabs != null)
         {
             // instantiate new gameobject
-            GameObject powerup = Instantiate(powerupPrefab, transform.position, Quaternion.identity);
+            GameObject powerup = Instantiate(powerupPrefabs[Random.Range(0, powerupPrefabs.Length)], transform.position, Quaternion.identity);
             // GameObject powerup = Instantiate(gameObject, Random.insideUnitSphere * Random.Range(0, 4f), Quaternion.identity);
 
             // find DynamicObjects
