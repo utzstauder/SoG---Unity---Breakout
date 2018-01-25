@@ -24,6 +24,8 @@ public class MyArrayScript : MonoBehaviour {
             Debug.Log(otherNumbers[i]);
         }
 
+        // assign values like this
+        numbers[3] = 10;
 
         for (int i = 0; i < 100; i++)
         {
