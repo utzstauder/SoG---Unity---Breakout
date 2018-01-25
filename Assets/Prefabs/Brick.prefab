@@ -82,6 +82,12 @@ MonoBehaviour:
   - {fileID: 1302963507247496, guid: c9c279dbe180e384dbf04dd5c71238b7, type: 2}
   - {fileID: 1302963507247496, guid: c6ebc55fb32ded94cbe6bff80bebfd28, type: 2}
   - {fileID: 1302963507247496, guid: 4886f071728b5a94495fd8e10566a1e2, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   maxHp: 1
 --- !u!212 &212447308239024032
 SpriteRenderer:
