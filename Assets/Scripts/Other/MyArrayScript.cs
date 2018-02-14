@@ -53,6 +53,7 @@ public class MyArrayScript : MonoBehaviour {
         Debug.LogFormat("random average = {0} | actual average = {1}", randomAverage, actualAverage);
 	}
 	
+
     int Sum(params int[] array)
     {
         int sum = 0;
