@@ -15,8 +15,11 @@ public class MyArraySort : MonoBehaviour {
         PrintArray(myArray);
 
         // 3) sort array
+        BubbleSort(myArray);
 
         // 4) output sorted array
+        Debug.Log("-----");
+        PrintArray(myArray);
     }
 
     /// <summary>
@@ -80,6 +83,31 @@ public class MyArraySort : MonoBehaviour {
     /// </summary>
     /// <param name="array">The array</param>
     void BubbleSort(int[] array)
+    {
+        bool change = true;
+
+        for (int i = 0; i < array.Length && change; i++)
+        {
+            change = false;
+
+            for (int a = 0; a < array.Length - ( i + 1); a++)
+            {                  
+                if (array[a] > array[a + 1])
+                {
+                    Swap(array, a, a + 1);
+                    change = true;
+                }
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Sorts the <paramref name="array"/> in ascending order
+    /// using the SelectionSort algorithm.
+    /// </summary>
+    /// <param name="array">The array</param>
+    void SelectionSort(int[] array)
     {
 
     }
