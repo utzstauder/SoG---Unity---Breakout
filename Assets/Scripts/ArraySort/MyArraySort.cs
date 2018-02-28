@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MyArraySort : MonoBehaviour {
 
+    public int n = 8;
+
 	void Start () {
         // 1) get random array
         int[] myArray = GetRandomArray(5);
@@ -15,11 +17,22 @@ public class MyArraySort : MonoBehaviour {
         PrintArray(myArray);
 
         // 3) sort array
-        BubbleSort(myArray);
+        //BubbleSort(myArray);
+        //SelectionSort(myArray);
+        //myArray = Quicksort(0, myArray.Length - 1, myArray);
+        //PrintArray(Quicksort(0, myArray.Length - 1, myArray));
 
         // 4) output sorted array
         Debug.Log("-----");
-        PrintArray(myArray);
+        //PrintArray(myArray);
+
+        float tStart = Time.realtimeSinceStartup;
+        Debug.LogFormat("Fibonacci({0}) = {1}", n, MyMathFunctions.Fibonacci(n));
+        Debug.LogFormat("Time: {0}", Time.realtimeSinceStartup - tStart);
+
+        tStart = Time.realtimeSinceStartup;
+        Debug.LogFormat("FibonacciProcedural({0}) = {1}", n, MyMathFunctions.FibonacciProcedural(n));
+        Debug.LogFormat("Time: {0}", Time.realtimeSinceStartup - tStart);
     }
 
     /// <summary>
@@ -109,6 +122,85 @@ public class MyArraySort : MonoBehaviour {
     /// <param name="array">The array</param>
     void SelectionSort(int[] array)
     {
+        int selectionIndex;
+        int selectionValue;
+        bool cacheFilled;
 
+        for (int i = 0; i < array.Length-1; i++)
+        {
+            selectionIndex = i;
+            selectionValue = 0;
+            cacheFilled = false;
+
+            for (int j = i+1; j < array.Length; j++)
+            {
+                if (!cacheFilled && array[i] > array[j])
+                {
+                    selectionIndex = j;
+                    selectionValue = array[j];
+                    cacheFilled = true;
+                }
+                else if (cacheFilled && selectionValue > array[j])
+                {
+                    selectionIndex = j;
+                    selectionValue = array[j];
+                    cacheFilled = true;
+                }
+
+                if (j >= array.Length - 1)
+                {
+
+
+
+
+                    if (cacheFilled && array[i] > selectionValue)
+                    {
+                    Swap(array, i, selectionIndex);
+                    
+                    }
+                        
+                }
+                cacheFilled = false;
+
+            }
+        }
+    }
+
+    int[] Quicksort(int left, int right, int[] array)
+    {
+        if(left < right)
+        {
+            int pivot = Divide(left, right, array);
+            Quicksort(left, pivot, array);
+            Quicksort(pivot + 1, right, array);
+        }
+        return array;
+    }
+
+    int Divide(int left, int right, int[] array)
+    {
+        int i = left;
+        int j = right -1;
+        int pivot = array[right];
+        do
+        {
+            while(array[i] < pivot && i < right -1)
+            {
+                i++;
+            }
+            while (array[j] >= pivot && j > left)
+            {
+                j--;
+            }
+            if(i > j)
+            {
+                Swap(array, i, j);
+            }
+        } while (i < j);
+        if(array[i] > pivot)
+        {
+            Swap(array, i, right);
+        }
+        return i;
     }
 }
