@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
         paused  = 3
     }
 
-
+    // public delegate void onScoreChangedDelegate(int value); 
     public event System.Action<int> OnScoreChanged;
 
 

@@ -12,16 +12,15 @@ public class ScoreLabel : MonoBehaviour {
         textComponent = GetComponent<Text>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         GameManager.Instance.OnScoreChanged += UpdateScoreLabel;
     }
 
-    //private void Update()
-    //{
-    //    textComponent.text = "Score " + GameManager.Instance.Score;
-    //}
-
+    private void OnDisable()
+    {
+        GameManager.Instance.OnScoreChanged -= UpdateScoreLabel;
+    }
 
     private void UpdateScoreLabel(int newScore)
     {
