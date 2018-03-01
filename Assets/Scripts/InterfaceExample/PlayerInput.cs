@@ -12,7 +12,21 @@ public class PlayerInput : MonoBehaviour, IPlayerInput {
         get { return Input.GetAxis("Vertical");  }
     }
 
-    public bool Jump {
-        get { return Input.GetButton("Jump"); }
+
+    private IPlayerController controller;
+
+    void Awake()
+    {
+        controller = GetComponent<IPlayerController>();
+        if (controller == null)
+        {
+            Destroy(this);
+        }
     }
+
+    void Update()
+    {
+        controller.Move(Vector3.right * Horizontal + Vector3.forward * Vertical);
+    }
+
 }
