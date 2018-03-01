@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    public event System.Action<int> OnScoreChanged;
+
+
 
     #region Public Properties
 
@@ -20,12 +23,26 @@ public class GameManager : MonoBehaviour {
 
     public GameState CurrentState { get; private set; }
 
-    public int Score { get; private set; }
+    public int Score {
+        get { return score; }
+        private set {
+            if (value != score)
+            {
+                score = value;
+                if (OnScoreChanged != null)
+                {
+                    OnScoreChanged(score);
+                }
+            }
+        }
+    }
 
     #endregion
 
 
     #region Private Fields
+
+    private int score;
 
     #endregion
 
