@@ -14,6 +14,6 @@ public class ScoreLabel : MonoBehaviour {
 
     private void Update()
     {
-        textComponent.text = "Score " + GameManager.Instance.GetScore();
+        textComponent.text = "Score " + GameManager.Instance.Score;
     }
 }

@@ -12,48 +12,20 @@ public class GameManager : MonoBehaviour {
         paused  = 3
     }
 
-    public GameState gameState { get; private set; }
 
-    // EXAMPLE!
-
-    // Field
-    private int expPerLevel = 10;
-
-    [SerializeField] private int experience;
-
-    // Properties
-    public int Experience {
-        get { return experience; }
-        set {
-            if (value < 0) value = 0;
-            experience = value;
-            }
-    }
-
-    public int Lvl {
-        get {
-            return Experience / expPerLevel;
-        }
-    }
-
-    public float LvlProgress {
-        get {
-            return (Experience % expPerLevel) / (float)expPerLevel;
-        }
-    }
-
-    // 
 
     #region Public Properties
 
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
+
+    public GameState CurrentState { get; private set; }
+
+    public int Score { get; private set; }
 
     #endregion
 
 
-    #region Private Properties
-
-    private int score = 0;
+    #region Private Fields
 
     #endregion
 
@@ -73,21 +45,20 @@ public class GameManager : MonoBehaviour {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
 
-        Experience = 235;
-        Debug.Log(Lvl);
-        Debug.Log(LvlProgress);
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            Score += 5;
+        }
     }
 
     #endregion
 
 
     #region Public Functions
-
-    public int GetScore()
-    {
-        return score;
-    }
 
     #endregion
 }
