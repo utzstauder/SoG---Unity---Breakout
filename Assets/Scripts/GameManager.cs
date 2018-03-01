@@ -16,9 +16,19 @@ public class GameManager : MonoBehaviour {
 
     // EXAMPLE!
 
+    // Field
     private int expPerLevel = 10;
 
-    public int Experience { get; private set; }
+    [SerializeField] private int experience;
+
+    // Properties
+    public int Experience {
+        get { return experience; }
+        set {
+            if (value < 0) value = 0;
+            experience = value;
+            }
+    }
 
     public int Lvl {
         get {
@@ -64,9 +74,9 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         }
 
-        exp = 235;
-        Debug.Log(lvl);
-        Debug.Log(lvlProgress);
+        Experience = 235;
+        Debug.Log(Lvl);
+        Debug.Log(LvlProgress);
     }
 
     #endregion
