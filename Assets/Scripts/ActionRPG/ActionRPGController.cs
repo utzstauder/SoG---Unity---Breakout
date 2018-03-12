@@ -11,6 +11,10 @@ public class ActionRPGController : MonoBehaviour {
     [SerializeField, Range(0.01f, 1f)] float maxDistanceToTarget = 0.1f;
     [SerializeField, Range(1f, 10f)]  float movementSpeed        = 5f;
 
+
+    [Header("UI"), SerializeField] WorldspaceLabelUI labelPrefab;
+
+
     private void Start()
     {
         int layer1 = LayerMask.NameToLayer("BlockMovement");
@@ -25,7 +29,7 @@ public class ActionRPGController : MonoBehaviour {
 
         // movementLayers = finalmask;
 
-        StartCoroutine(MoveRandomly(1f));
+        // StartCoroutine(MoveRandomly(1f));
     }
 
     //int Add(int a, int b)
@@ -59,6 +63,12 @@ public class ActionRPGController : MonoBehaviour {
                 }
 
                 moveCoroutine = StartCoroutine(MoveToTarget(hitInfo.point));
+
+                if (labelPrefab != null)
+                {
+                    WorldspaceLabelUI label = Instantiate(labelPrefab);
+                    label.Init(hitInfo.point + Vector3.up * 2, hitInfo.transform.gameObject.name);
+                }
             }
         }
 
@@ -80,14 +90,11 @@ public class ActionRPGController : MonoBehaviour {
         {
             Debug.Log(count++);
             Debug.Log(moveCoroutine);
-            if (moveCoroutine == null)
-            {
-                Vector3 randomPosition = Random.onUnitSphere * 10;
-                randomPosition.y = 0;
 
-                moveCoroutine = StartCoroutine(MoveToTarget(randomPosition));
-            }
-            yield return new WaitForSeconds(delay);
+            Vector3 randomPosition = Random.onUnitSphere * 10;
+            randomPosition.y = 0;
+
+            yield return StartCoroutine(MoveToTarget(randomPosition));
         }
     }
 
