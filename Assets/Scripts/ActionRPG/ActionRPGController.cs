@@ -6,6 +6,11 @@ public class ActionRPGController : MonoBehaviour {
 
     [SerializeField] LayerMask movementLayers;
 
+    Vector3 targetPosition;
+    Coroutine moveCoroutine;
+    [SerializeField, Range(0.01f, 1f)] float maxDistanceToTarget = 0.1f;
+    [SerializeField, Range(1f, 10f)]  float movementSpeed        = 5f;
+
     private void Start()
     {
         int layer1 = LayerMask.NameToLayer("BlockMovement");
@@ -19,6 +24,8 @@ public class ActionRPGController : MonoBehaviour {
         Debug.Log(finalmask);
 
         // movementLayers = finalmask;
+
+        StartCoroutine(MoveRandomly(1f));
     }
 
     //int Add(int a, int b)
@@ -43,7 +50,60 @@ public class ActionRPGController : MonoBehaviour {
                 Debug.LogFormat("Ray hit {0} at {1}",
                     hitInfo.transform.gameObject.name,
                     hitInfo.point);
+
+                // transform.position = hitInfo.point; BAD!
+
+                if (moveCoroutine != null)
+                {
+                    StopCoroutine(moveCoroutine);
+                }
+
+                moveCoroutine = StartCoroutine(MoveToTarget(hitInfo.point));
             }
         }
+
+        //if (Vector3.Distance(transform.position, targetPosition) > maxDistanceToTarget)
+        //{
+        //    Vector3 direction = targetPosition - transform.position;
+        //    direction.y = 0;
+        //    direction.Normalize();
+
+        //    transform.position += direction * movementSpeed * Time.deltaTime;
+        //}
 	}
+
+
+    IEnumerator MoveRandomly(float delay)
+    {
+        int count = 0;
+        while (true)
+        {
+            Debug.Log(count++);
+            Debug.Log(moveCoroutine);
+            if (moveCoroutine == null)
+            {
+                Vector3 randomPosition = Random.onUnitSphere * 10;
+                randomPosition.y = 0;
+
+                moveCoroutine = StartCoroutine(MoveToTarget(randomPosition));
+            }
+            yield return new WaitForSeconds(delay);
+        }
+    }
+
+    IEnumerator MoveToTarget(Vector3 targetPosition)
+    {
+        while (Vector3.Distance(transform.position, targetPosition) > maxDistanceToTarget)
+        {
+            Vector3 direction = targetPosition - transform.position;
+            direction.y = 0;
+            direction.Normalize();
+
+            transform.position += direction * movementSpeed * Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        moveCoroutine = null;
+    }
 }
