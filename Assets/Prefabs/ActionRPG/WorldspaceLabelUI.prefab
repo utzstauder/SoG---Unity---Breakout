@@ -60,9 +60,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 114905292035513878}
-  fadeInDuration: 1
-  fadeInOffset: {x: 0, y: 1, z: 0}
+  fadeInDuration: 0.2
+  fadeInOffset: {x: 0, y: 0.2, z: 0}
   fadeOutDuration: 1
+  fadeOutOffset: {x: 0, y: 1, z: 0}
 --- !u!114 &114268571611105458
 MonoBehaviour:
   m_ObjectHideFlags: 1
