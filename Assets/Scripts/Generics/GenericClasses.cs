@@ -9,14 +9,12 @@ public class GenericClasses : MonoBehaviour
         GenericClass<int> instance = new GenericClass<int>();
         instance.Print(2000);
 
-        GenericClass<string> instanceString = new GenericClass<string>();
-        instanceString.Print("Hello World!");
-
-        float t = GetComponent<float>();
+        GenericClass<char> instanceString = new GenericClass<char>();
+        instanceString.Print('!');
     }
 }
 
-public class GenericClass<T> {
+public class GenericClass<T>{
 
     public void Print(T data)
     {
