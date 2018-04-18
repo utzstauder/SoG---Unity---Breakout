@@ -5,7 +5,7 @@ using UnityEngine;
 public class MyListTest : MonoBehaviour {
 
 	void Start () {
-        MyList list = new MyList();
+        MyList<int> list = new MyList<int>();
 
         // fill list
         for(int i = 0; i < 10; i++)
@@ -17,7 +17,7 @@ public class MyListTest : MonoBehaviour {
         list.Print();
 
         // GetElement
-        MyNode node = list.GetElement(5);
+        MyNode<int> node = list.GetElement(5);
         Debug.LogFormat("Node value at position {0}: {1}", 5, node.value);
 
         // RemoveAt

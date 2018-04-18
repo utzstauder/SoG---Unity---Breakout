@@ -3,9 +3,9 @@
 /// <summary>
 /// Custom class that implements basic list functionalities
 /// </summary>
-public class MyList {
+public class MyList<T> {
 
-    public MyNode first;
+    public MyNode<T> first;
 
     public MyList()
     {
@@ -16,10 +16,10 @@ public class MyList {
     /// Adds an element at the end of the list.
     /// </summary>
     /// <param name="value">The element value</param>
-    public void Add(int value)
+    public void Add(T value)
     {
         // create new node with value
-        MyNode newNode = new MyNode(value);
+        MyNode<T> newNode = new MyNode<T>(value);
 
         if (first == null)
         {
@@ -28,7 +28,7 @@ public class MyList {
         } else
         {
             // list is not empty
-            MyNode last = first;
+            MyNode<T> last = first;
             while(last.next != null)
             {
                 // find last element
@@ -45,7 +45,7 @@ public class MyList {
     /// </summary>
     /// <param name="index">The position of the node</param>
     /// <returns>The node</returns>
-    public MyNode GetElement(int index)
+    public MyNode<T> GetElement(int index)
     {
         if (first == null)
         {
@@ -53,7 +53,7 @@ public class MyList {
             return null;
         }
 
-        MyNode returnElement = first;
+        MyNode<T> returnElement = first;
         int iterator = 0;
 
         while (returnElement != null && iterator < index)
@@ -82,8 +82,8 @@ public class MyList {
             return;
         }
 
-        MyNode targetNode = first;
-        MyNode prevNode = first;
+        MyNode<T> targetNode = first;
+        MyNode<T> prevNode = first;
         int iterator = 0;
 
         while (targetNode != null && iterator < index)
@@ -104,10 +104,10 @@ public class MyList {
     /// </summary>
     /// <param name="node">The node to look for</param>
     /// <returns>The index</returns>
-    public int GetIndex(MyNode node)
+    public int GetIndex(MyNode<T> node)
     {
         int index = 0;
-        MyNode iteratorNode = first;
+        MyNode<T> iteratorNode = first;
 
         while (iteratorNode != null)
         {
@@ -130,7 +130,7 @@ public class MyList {
     public int GetLength()
     {
         int length = 0;
-        MyNode iterator = first;
+        MyNode<T> iterator = first;
 
         while(iterator != null)
         {
@@ -146,7 +146,7 @@ public class MyList {
     /// </summary>
     public void Print()
     {
-        MyNode printNode = first;
+        MyNode<T> printNode = first;
         while (printNode != null)
         {
             Debug.Log(printNode.value);
@@ -155,18 +155,18 @@ public class MyList {
     }
 }
 
-public class MyNode
+public class MyNode<T>
 {
-    public MyNode next;
-    public int value;
+    public MyNode<T> next;
+    public T value;
 
     public MyNode()
     {
         next  = null;
-        value = 0;
+        value = default(T);
     }
 
-    public MyNode(int value)
+    public MyNode(T value)
     {
         next = null;
         this.value = value;
