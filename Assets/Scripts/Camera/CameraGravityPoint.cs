@@ -33,6 +33,11 @@ public class CameraGravityPoint : MonoBehaviour {
 
     #region Unity Messages
 
+    private void Awake()
+    {
+        
+    }
+
     private void OnEnable()
     {
         RegisterPoint();
