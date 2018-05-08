@@ -16,9 +16,10 @@ MonoBehaviour:
   - {fileID: 114217460561678658}
   EditorEvents:
   - {fileID: 114033586115101518}
+  - {fileID: 114142316381494904}
   MasterBankRef: {fileID: 114217460561678658}
   StringsBankRef: {fileID: 114455237461188320}
-  stringsBankWriteTime: 636597316678665245
+  stringsBankWriteTime: 636597349066069440
   cacheVersion: 2
 --- !u!114 &114033586115101518
 MonoBehaviour:
@@ -39,8 +40,30 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114979538678192284}
-  - {fileID: 114663104903332572}
+  - {fileID: 114431006546916922}
+  - {fileID: 114252329858693476}
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114142316381494904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Papair
+  guid: adf4bd113207e146bfce0764530941cf
+  Banks:
+  - {fileID: 114217460561678658}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 114808500827992802}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114217460561678658
@@ -55,12 +78,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: d:\Users\BM\Documents\FMOD\FmodExample\Build\Desktop\Master Bank.bank
-  lastModified: 636597316678614782
+  lastModified: 636597349066024307
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 686016
+    Value: 8824768
   Exists: 1
+--- !u!114 &114217489621023294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: danger
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114252329858693476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: hp
+  Min: 0
+  Max: 1
+  Default: 1
+--- !u!114 &114431006546916922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: danger
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114455237461188320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,12 +141,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: d:\Users\BM\Documents\FMOD\FmodExample\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636597316678665245
+  lastModified: 636597349066069440
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 722
+    Value: 770
   Exists: 1
+--- !u!114 &114556409566922146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: hp
+  Min: 0
+  Max: 1
+  Default: 1
+--- !u!114 &114602343747117386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Progression
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114663104903332572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +192,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 1
+--- !u!114 &114808500827992802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Progression
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114979538678192284
 MonoBehaviour:
   m_ObjectHideFlags: 0
