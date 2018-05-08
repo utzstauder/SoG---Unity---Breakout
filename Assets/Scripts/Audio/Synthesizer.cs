@@ -38,6 +38,9 @@ public class Synthesizer : MonoBehaviour {
 
     private bool isActive = false;
 
+    private System.Random random = new System.Random();
+    // random.NextDouble();
+
     #endregion
 
 
@@ -145,15 +148,15 @@ public class Synthesizer : MonoBehaviour {
                         break;
 
                     case WaveType.Triangle:
-
+                        data[i + c] = gain * (Mathf.PingPong((float)phase, 1f) * 2f - 1f);
                         break;
 
                     case WaveType.Sawtooth:
-
+                        data[i + c] = gain * (Mathf.InverseLerp(0, Mathf.PI * 2, (float)phase) * 2 - 1f);
                         break;
 
                     case WaveType.Noise:
-
+                        data[i + c] = gain * (((float)random.NextDouble() * 2f) - 1f) ;
                         break;
 
                     default:
