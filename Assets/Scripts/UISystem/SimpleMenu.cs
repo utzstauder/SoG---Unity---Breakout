@@ -26,12 +26,12 @@ public class SimpleMenu : Menu<SimpleMenu> {
     {
         Open();
 
-        Instance.button.onClick.AddListener(
-                delegate
-                {
-                    Instance.ShowOptionsMenu();
-                }
-            );
+        //Instance.button.onClick.AddListener(
+        //        delegate
+        //        {
+        //            Instance.ShowOptionsMenu();
+        //        }
+        //    );
     }
 
     public static void Hide()
