@@ -230,9 +230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a7bb4e95742fc419f5ea0ffc4bd0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveType: 3
-  frequency: 440
-  gain: 0.3
+  waveType: 1
+  gain: 0.2
+  transpose: 0
 --- !u!114 &999943574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63c418830016b3428587e6bb0fe3115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteStart: 50
+  step: 1
+  deltaTime: 0.5
 --- !u!1 &1247922243
 GameObject:
   m_ObjectHideFlags: 0

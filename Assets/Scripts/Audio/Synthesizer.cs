@@ -8,8 +8,10 @@ public class Synthesizer : MonoBehaviour {
 
     public class Voice
     {
-        public int noteNumber;
-        public float velocity;
+        public bool IsActive { get { return isActive; } }
+
+        private int noteNumber;
+        private float velocity;
 
         float frequency;
         float gain;
@@ -23,7 +25,7 @@ public class Synthesizer : MonoBehaviour {
 
         bool isActive;
 
-        public Voice(WaveType waveType)
+        public Voice(WaveType waveType, float gain)
         {
             noteNumber = -1;
             velocity = 0;
@@ -31,6 +33,7 @@ public class Synthesizer : MonoBehaviour {
             isActive = false;
 
             this.waveType = waveType;
+            this.gain = gain;
         }
 
         public void NoteOn(int noteNumber, float velocity)
@@ -74,30 +77,30 @@ public class Synthesizer : MonoBehaviour {
                     switch (waveType)
                     {
                         case WaveType.Sine:
-                            data[i + c] = gain * Mathf.Sin((float)phase);
+                            data[i + c] += gain * Mathf.Sin((float)phase);
                             break;
 
                         case WaveType.Square:
                             if (Mathf.Sin((float)phase) >= 0)
                             {
-                                data[i + c] = gain;
+                                data[i + c] += gain;
                             }
                             else
                             {
-                                data[i + c] = -gain;
+                                data[i + c] += -gain;
                             }
                             break;
 
                         case WaveType.Triangle:
-                            data[i + c] = gain * (Mathf.PingPong((float)phase, 1f) * 2f - 1f);
+                            data[i + c] += gain * (Mathf.PingPong((float)phase, 1f) * 2f - 1f);
                             break;
 
                         case WaveType.Sawtooth:
-                            data[i + c] = gain * (Mathf.InverseLerp(0, Mathf.PI * 2, (float)phase) * 2 - 1f);
+                            data[i + c] += gain * (Mathf.InverseLerp(0, Mathf.PI * 2, (float)phase) * 2 - 1f);
                             break;
 
                         case WaveType.Noise:
-                            data[i + c] = gain * (((float)random.NextDouble() * 2f) - 1f);
+                            data[i + c] += gain * (((float)random.NextDouble() * 2f) - 1f);
                             break;
 
                         default:
@@ -124,6 +127,7 @@ public class Synthesizer : MonoBehaviour {
 
     const int fixedNoteNumber = 69;
     const float fixedFrequency = 440f;
+    const int polyphony = 32;
 
     #endregion
 
@@ -132,23 +136,20 @@ public class Synthesizer : MonoBehaviour {
 
     private NoteInput input;
 
-    private float sampleRate;
-    private double phase;
-    private double increment;
-    private float frequency = 440f;
-
     [SerializeField]
     private WaveType waveType = WaveType.Sine;
-
 
     [SerializeField, Range(0, 1f)]
     private float gain = 1f;
 
-    private bool isActive = false;
-    private int activeNoteNumber = -1;
+    [SerializeField]
+    private int transpose = 0;
+    private int octave = 0;
 
-    private System.Random random = new System.Random();
-    // random.NextDouble();
+    private Voice[] voicesPool;
+    private List<Voice> activeVoices;
+    private Stack<Voice> freeVoices;
+    private Dictionary<int, Voice> noteDict;
 
     #endregion
 
@@ -157,9 +158,18 @@ public class Synthesizer : MonoBehaviour {
 
     private void Awake()
     {
-        sampleRate = (float)AudioSettings.outputSampleRate;
-
         input = GetComponent<NoteInput>();
+
+        voicesPool = new Voice[polyphony];
+        activeVoices = new List<Voice>();
+        freeVoices = new Stack<Voice>();
+        noteDict = new Dictionary<int, Voice>();
+
+        for (int i = 0; i < voicesPool.Length; i++)
+        {
+            voicesPool[i] = new Voice(waveType, gain);
+            freeVoices.Push(voicesPool[i]);
+        }
     }
 
     private void OnEnable()
@@ -187,66 +197,22 @@ public class Synthesizer : MonoBehaviour {
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
-        //Debug.LogFormat("Buffer size: {0} | Channel count: {1}",
-        //    data.Length / channels,
-        //    channels);
-
         for (int i = 0; i < data.Length; i++)
         {
             data[i] = 0;
         }
 
-        if (!isActive) return;
-
-        increment = frequency * 2 * Mathf.PI / sampleRate;
-
-        for (int i = 0; i < data.Length; i += channels)
+        for (int i = activeVoices.Count - 1; i >= 0; i--)
         {
-            phase += increment;
-
-            if (phase > (Mathf.PI * 2))
+            activeVoices[i].WriteAudioBuffer(ref data, channels);
+            if (activeVoices[i].IsActive == false)
             {
-                phase -= Mathf.PI * 2;
+                freeVoices.Push(activeVoices[i]);
+                activeVoices.RemoveAt(i);
             }
-
-            for (int c = 0; c < channels; c++)
-            {
-                switch (waveType)
-                {
-                    case WaveType.Sine:
-                        data[i + c] = gain * Mathf.Sin((float)phase);
-                        break;
-
-                    case WaveType.Square:
-                        if (Mathf.Sin((float)phase) >= 0)
-                        {
-                            data[i + c] = gain;
-                        }
-                        else
-                        {
-                            data[i + c] = -gain;
-                        }
-                        break;
-
-                    case WaveType.Triangle:
-                        data[i + c] = gain * (Mathf.PingPong((float)phase, 1f) * 2f - 1f);
-                        break;
-
-                    case WaveType.Sawtooth:
-                        data[i + c] = gain * (Mathf.InverseLerp(0, Mathf.PI * 2, (float)phase) * 2 - 1f);
-                        break;
-
-                    case WaveType.Noise:
-                        data[i + c] = gain * (((float)random.NextDouble() * 2f) - 1f) ;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
         }
 
+        // TODO: ?
     }
 
     #endregion
@@ -267,18 +233,34 @@ public class Synthesizer : MonoBehaviour {
 
     private void Input_OnNoteOn(int noteNumber, float velocity)
     {
+        noteNumber += transpose + 12 * octave;
+
         Debug.LogFormat("NoteOn: {0}", noteNumber);
-        frequency = NoteToFrequency(noteNumber);
-        activeNoteNumber = noteNumber;
-        isActive = true;
+
+        if (noteDict.ContainsKey(noteNumber))
+        {
+            return;
+        }
+
+        if (freeVoices.Count > 0)
+        {
+            Voice voice = freeVoices.Pop();
+            voice.NoteOn(noteNumber, velocity);
+            activeVoices.Add(voice);
+            noteDict.Add(noteNumber, voice);
+        }
     }
 
     private void Input_OnNoteOff(int noteNumber)
     {
+        noteNumber += transpose + 12 * octave;
+
         Debug.LogFormat("NoteOff: {0}", noteNumber);
-        if (noteNumber == activeNoteNumber)
+
+        if (noteDict.ContainsKey(noteNumber))
         {
-            isActive = false;
+            noteDict[noteNumber].NoteOff(noteNumber);
+            noteDict.Remove(noteNumber);
         }
     }
 

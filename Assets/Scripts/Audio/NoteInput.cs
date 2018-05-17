@@ -18,6 +18,13 @@ public class NoteInput : MonoBehaviour {
 
     Dictionary<KeyCode, int> virtualKeysDict;
 
+    [SerializeField]
+    private int noteStart = 60;
+    [SerializeField]
+    private int step = 1;
+    [SerializeField]
+    private float deltaTime = 0.5f;
+
     #endregion
 
 
@@ -41,6 +48,11 @@ public class NoteInput : MonoBehaviour {
         virtualKeysDict.Add(KeyCode.K, 63); // C
     }
 
+    private void Start()
+    {
+        StartCoroutine(Arpeggiator());
+    }
+
     void Update()
     {
         foreach(KeyCode key in virtualKeysDict.Keys)
@@ -62,6 +74,27 @@ public class NoteInput : MonoBehaviour {
                 }
             }
         }
+    }
+
+    IEnumerator Arpeggiator()
+    {
+        int noteNumber = noteStart;
+
+        while (true) {
+
+            if (OnNoteOff != null)
+            {
+                OnNoteOff(noteNumber);
+            }
+
+            if (OnNoteOn != null)
+            {
+                OnNoteOn(noteNumber += step, 1f);
+            }
+
+            yield return new WaitForSeconds(deltaTime);
+        }
+
     }
 
     #endregion
