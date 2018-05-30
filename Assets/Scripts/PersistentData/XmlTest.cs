@@ -8,10 +8,19 @@ public class XmlTest : MonoBehaviour {
         //Employee hans = new Employee("Hans", 50);
         //hans.Save();
 
-        string filename = Application.dataPath + "/Data/Hans.xml";
-        Employee wurst = Employee.Load(filename);
+        //string filename = Application.dataPath + "/Data/Hans.xml";
+        //Employee wurst = Employee.Load(filename);
 
-        Debug.LogFormat("Name: {0}, Age: {1}", wurst.name, wurst.age);
+        //Debug.LogFormat("Name: {0}, Age: {1}", wurst.name, wurst.age);
+
+        EmpInfo empinfo = new EmpInfo();
+
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    empinfo.employees.Add(new Employee());
+        //}
+
+        empinfo.Save();
 	}
 
 }
