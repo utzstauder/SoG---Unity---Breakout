@@ -7,11 +7,9 @@ using System.IO;
 
 [XmlRoot("Employee")]
 public class Employee {
-    [XmlElement("name")]
-    public string name;
+    [XmlElement("name")] public string name;
 
-    [XmlElement("age")]
-    public int age;
+    [XmlElement("age")]  public int age;
 
     public Employee() {
         name = "John Doe";
