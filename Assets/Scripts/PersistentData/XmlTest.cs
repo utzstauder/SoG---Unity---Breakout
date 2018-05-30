@@ -15,10 +15,10 @@ public class XmlTest : MonoBehaviour {
 
         EmpInfo empinfo = new EmpInfo();
 
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    empinfo.employees.Add(new Employee());
-        //}
+        for (int i = 0; i < 1000; i++)
+        {
+            empinfo.employees.Add(new Employee());
+        }
 
         empinfo.Save();
 	}
