@@ -22,4 +22,18 @@ public class EmpInfo : GenericXmlSerializableClass<EmpInfo> {
         string filename = Application.dataPath + "/Data/empinfo.xml";
         Save(filename);
     }
+
+
+    public Employee GetEmployeeByName(string name)
+    {
+        foreach (Employee employee in employees)
+        {
+            if (string.Compare(employee.name, name) == 0)
+            {
+                return employee;
+            }
+        }
+
+        return null;
+    }
 }

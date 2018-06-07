@@ -1,26 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class XmlTest : MonoBehaviour {
 
+    const string employeeDataPath = "Data/Employees";
+
 	void Start () {
-        //Employee hans = new Employee("Hans", 50);
-        //hans.Save();
+        // string dataPath = Application.dataPath + employeeDataPath;
+        string dataPath = Path.Combine(Application.dataPath, employeeDataPath);
 
-        //string filename = Application.dataPath + "/Data/Hans.xml";
-        //Employee wurst = Employee.Load(filename);
+        string[] files = Directory.GetFiles(dataPath, "*.xml");
 
-        //Debug.LogFormat("Name: {0}, Age: {1}", wurst.name, wurst.age);
+        EmpInfo empInfo = new EmpInfo();
 
-        EmpInfo empinfo = new EmpInfo();
-
-        for (int i = 0; i < 1000; i++)
+        foreach (string file in files)
         {
-            empinfo.employees.Add(new Employee());
+            System.DateTime modDate = File.GetLastWriteTime(file);
+            Debug.Log(modDate.ToString("HH:mm"));
+
+            Employee newEmployee = Employee.Load(file);
+            empInfo.employees.Add(newEmployee);
         }
 
-        empinfo.Save();
+        empInfo.Save();
+
 	}
 
 }
