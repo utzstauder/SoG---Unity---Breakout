@@ -29,10 +29,15 @@ public class PrefabSpawnerWindow : EditorWindow {
 
     private void OnGUI()
     {
+        if (prefab == null)
+        {
+            EditorGUILayout.HelpBox("Please assign a prefab reference.", MessageType.Info);
+            // GUILayout.Label("Please assign a prefab reference.", GUI.tooltip);
+        }
         prefab = EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), false) as GameObject;
         keepPrefabLink = EditorGUILayout.Toggle("Keep Prefab Link", keepPrefabLink);
 
-        parentTransform = EditorGUILayout.ObjectField("Parent", parentTransform, typeof(Transform), true) as Transform;
+        parentTransform = EditorGUILayout.ObjectField(new GUIContent("Parent Transform", "All prefabs instances will be parented to this."), parentTransform, typeof(Transform), true) as Transform;
 
         amount = EditorGUILayout.IntField("Amount", amount);
         if (amount < 1)
@@ -72,6 +77,18 @@ public class PrefabSpawnerWindow : EditorWindow {
             EditorGUI.EndDisabledGroup();
         }
         EditorGUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Open File"))
+        {
+            string path = EditorUtility.OpenFilePanel("Open file", "", "xml");
+            Debug.Log(path);
+        }
+
+        if (GUILayout.Button("Save File"))
+        {
+            string path = EditorUtility.SaveFilePanel("Save File", "", "settings", "xml");
+            Debug.Log(path);
+        }
     }
 
     #endregion
